@@ -2543,7 +2543,7 @@ $gutter: clamp(20px, 5vw, 80px);
     line-height: 1;
   }
 
-  span {
+  &-meta {
     display: grid;
     gap: 6px;
   }
@@ -2814,5 +2814,16 @@ $gutter: clamp(20px, 5vw, 80px);
 @include tablet {
   .reviews__wall .review:nth-child(n + 5) {
     display: none;
+  }
+}
+
+.reviews__wall--few {
+  columns: auto;
+  display: grid;
+  gap: 16px;
+  max-width: 640px;
+
+  .review {
+    margin: 0;
   }
 }

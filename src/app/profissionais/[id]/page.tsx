@@ -61,7 +61,7 @@ export default async function BarberPage({
           {summary.count > 0 && (
             <a href="#avaliacoes" className="profile__score">
               <strong>{formatRating(summary.average)}</strong>
-              <span>
+              <span className="profile__score-meta">
                 <Stars value={summary.average} size={18} />
                 <small>{summary.count} avaliações</small>
               </span>
@@ -100,6 +100,11 @@ export default async function BarberPage({
           team={team}
           initial={{ professionalId: member.id }}
           variant="section"
+          title={
+            <>
+              Agende com <em>{firstName}</em>
+            </>
+          }
         />
       </section>
 

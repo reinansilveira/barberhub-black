@@ -63,10 +63,12 @@ export function BookingFlow({
   team,
   initial,
   variant = "page",
+  title,
 }: {
   team: Member[];
   initial: { professionalId?: string; date?: string };
   variant?: "page" | "section";
+  title?: ReactNode;
 }) {
   const flow = useBookingFlow(team, initial);
   const { professional, service, slot } = flow;
@@ -133,7 +135,11 @@ export function BookingFlow({
             </h1>
           ) : (
             <h2 className="title title--sm">
-              Reserve em <em>1 minuto</em>
+              {title ?? (
+                <>
+                  Reserve em <em>1 minuto</em>
+                </>
+              )}
             </h2>
           )}
         </header>

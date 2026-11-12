@@ -58,7 +58,7 @@ export function ReviewsSection({
       </aside>
 
       {reviews.length > 0 && (
-        <div className="reviews__wall">
+        <div className={`reviews__wall${reviews.length <= 3 ? " reviews__wall--few" : ""}`}>
           {reviews.map((review, index) => (
             <figure
               key={review.id}
