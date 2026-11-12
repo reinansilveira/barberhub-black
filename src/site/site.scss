@@ -2827,3 +2827,70 @@ $gutter: clamp(20px, 5vw, 80px);
     margin: 0;
   }
 }
+
+/* ---------- largura máxima do conteúdo ---------- */
+// Os fundos continuam de ponta a ponta; só o conteúdo para de crescer.
+
+$content-max: 1440px;
+$inline: max(#{$gutter}, calc((100% - #{$content-max}) / 2));
+
+.nav,
+.hero,
+.book-section,
+.team,
+.reviews,
+.profile,
+.profile-book,
+.foot,
+.rail .head {
+  padding-inline: $inline;
+}
+
+.rail__track {
+  padding-inline: $inline;
+  scroll-padding-inline: $inline;
+}
+
+.stats,
+.club {
+  margin-inline: $inline;
+}
+
+.hero__booking {
+  width: 100%;
+}
+
+.pinned {
+  &__track {
+    padding-inline: $inline;
+  }
+
+  &__item--0 {
+    width: min(42vw, 820px);
+    height: min(70vh, 720px);
+  }
+
+  &__item--1 {
+    width: min(28vw, 540px);
+    height: min(52vh, 540px);
+  }
+
+  &__item--2 {
+    width: min(32vw, 620px);
+    height: min(60vh, 620px);
+  }
+
+  @include tablet {
+    &__item,
+    &__item--0,
+    &__item--1,
+    &__item--2 {
+      width: 78vw;
+      height: 60vh;
+    }
+  }
+}
+
+.finale__content {
+  max-width: $content-max;
+}

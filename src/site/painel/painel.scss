@@ -494,3 +494,9 @@ $ease: cubic-bezier(0.16, 1, 0.3, 1);
     transform: scaleY(0);
   }
 }
+
+.painel__main {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
