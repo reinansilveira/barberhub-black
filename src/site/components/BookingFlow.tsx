@@ -355,37 +355,42 @@ export function BookingFlow({
       >
         <p className="ticket__label">Seu horário</p>
         {professional ? (
-          <div className="ticket__pro">
-            <Avatar member={professional} size={52} />
-            <div>
-              <strong>{professional.name}</strong>
-              <span>{professional.role}</span>
+          <>
+            <div className="ticket__pro">
+              <Avatar member={professional} size={52} />
+              <div>
+                <strong>{professional.name}</strong>
+                <span>{professional.role}</span>
+              </div>
             </div>
-          </div>
+            <dl className="ticket__rows">
+              <div>
+                <dt>Serviço</dt>
+                <dd>{service?.name ?? "—"}</dd>
+              </div>
+              <div>
+                <dt>Data</dt>
+                <dd>{slot ? longDate(flow.date) : "—"}</dd>
+              </div>
+              <div>
+                <dt>Horário</dt>
+                <dd>{slot ? formatSlot(slot.startsAt) : "—"}</dd>
+              </div>
+            </dl>
+            <div className="ticket__total">
+              <span>Total</span>
+              <strong>{service ? currency.format(service.price) : "—"}</strong>
+            </div>
+            <p className="ticket__note">Pagamento na barbearia</p>
+          </>
         ) : (
-          <p className="ticket__placeholder">
-            Escolha um profissional para começar.
-          </p>
+          <ul className="ticket__trust">
+            <li>Sem cadastro</li>
+            <li>Confirmação na hora</li>
+            <li>Cancelamento grátis até 2h antes</li>
+            <li>Pagamento na barbearia</li>
+          </ul>
         )}
-        <dl className="ticket__rows">
-          <div>
-            <dt>Serviço</dt>
-            <dd>{service?.name ?? "—"}</dd>
-          </div>
-          <div>
-            <dt>Data</dt>
-            <dd>{slot ? longDate(flow.date) : "—"}</dd>
-          </div>
-          <div>
-            <dt>Horário</dt>
-            <dd>{slot ? formatSlot(slot.startsAt) : "—"}</dd>
-          </div>
-        </dl>
-        <div className="ticket__total">
-          <span>Total</span>
-          <strong>{service ? currency.format(service.price) : "—"}</strong>
-        </div>
-        <p className="ticket__note">Pagamento na barbearia</p>
       </aside>
     </div>
   );

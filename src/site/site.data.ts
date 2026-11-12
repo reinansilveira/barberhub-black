@@ -68,9 +68,9 @@ export const GALLERY = [
 ] as const;
 
 export const STATS = [
-  { value: 28000, suffix: "+", label: "cortes" },
-  { value: 4.9, suffix: "", label: "nota média", decimals: 1 },
-  { value: 98, suffix: "%", label: "voltam" },
+  { value: 28000, suffix: "+", label: "cortes feitos" },
+  { value: 12, suffix: " anos", label: "de casa" },
+  { value: 98, suffix: "%", label: "dos clientes voltam" },
 ] as const;
 
 export const PLANS = [

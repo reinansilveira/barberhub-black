@@ -1873,7 +1873,7 @@ $gutter: clamp(20px, 5vw, 80px);
 
 .pros {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 
   @include tablet {
@@ -2579,73 +2579,83 @@ $gutter: clamp(20px, 5vw, 80px);
 /* ---------- reviews ---------- */
 
 .reviews {
-  padding: clamp(90px, 12vw, 150px) 0;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(300px, 380px) minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 96px);
+  align-items: start;
+  padding: clamp(90px, 11vw, 150px) $gutter;
 
-  &__head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 32px;
-    margin-bottom: clamp(36px, 5vw, 56px);
-    padding: 0 $gutter;
+  @include tablet {
+    grid-template-columns: 1fr;
   }
 
-  &__track {
-    display: flex;
-    gap: 16px;
-    padding: 0 $gutter 8px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding: 0 $gutter;
-    scrollbar-width: none;
+  &__aside {
+    position: sticky;
+    top: 100px;
+    display: grid;
+    gap: 24px;
 
-    &::-webkit-scrollbar {
-      display: none;
+    .eyebrow {
+      margin: 0;
     }
+
+    @include tablet {
+      position: static;
+    }
+  }
+
+  &__cta {
+    justify-self: start;
+  }
+
+  &__wall {
+    columns: 2 300px;
+    column-gap: 16px;
   }
 }
 
 .score {
   display: grid;
-  grid-template-columns: auto auto;
-  align-items: center;
-  gap: 8px 20px;
-  padding: 20px 24px;
+  gap: 18px;
+  padding: 22px;
   border: 1px solid $line;
   border-radius: 22px;
   background: $bg-2;
 
-  &__value {
-    font-family: $serif;
-    font-weight: 400;
-    font-size: 64px;
-    line-height: 1;
-  }
+  &__top {
+    display: flex;
+    align-items: center;
+    gap: 18px;
 
-  &__meta {
-    display: grid;
-    gap: 8px;
-
-    span:last-child {
-      font-size: 13px;
-      color: $muted;
+    > div {
+      display: grid;
+      gap: 6px;
     }
   }
 
+  &__value {
+    font-family: $serif;
+    font-weight: 400;
+    font-size: 72px;
+    line-height: 0.85;
+  }
+
+  &__count {
+    font-size: 13px;
+    color: $muted;
+  }
+
   &__bars {
-    grid-column: 1 / -1;
     display: grid;
-    gap: 6px;
-    margin: 8px 0 0;
-    padding: 12px 0 0;
+    gap: 7px;
+    margin: 0;
+    padding: 16px 0 0;
     border-top: 1px solid $line;
     list-style: none;
 
     li {
       display: grid;
-      grid-template-columns: 12px 1fr;
+      grid-template-columns: 10px 1fr 34px;
       align-items: center;
       gap: 10px;
       font-size: 12px;
@@ -2653,8 +2663,8 @@ $gutter: clamp(20px, 5vw, 80px);
     }
 
     i {
-      height: 4px;
-      border-radius: 2px;
+      height: 5px;
+      border-radius: 3px;
       background: rgba(243, 238, 230, 0.08);
       overflow: hidden;
     }
@@ -2662,60 +2672,72 @@ $gutter: clamp(20px, 5vw, 80px);
     b {
       display: block;
       height: 100%;
-      border-radius: 2px;
+      border-radius: 3px;
       background: $gold;
+    }
+
+    small {
+      text-align: right;
     }
   }
 }
 
 .review {
-  display: flex;
-  flex: 0 0 clamp(280px, 30vw, 400px);
-  flex-direction: column;
-  gap: 18px;
-  margin: 0;
-  padding: 28px;
+  display: grid;
+  gap: 16px;
+  margin: 0 0 16px;
+  padding: 24px;
   border: 1px solid $line;
-  border-radius: 24px;
+  border-radius: 22px;
   background: $bg-2;
-  scroll-snap-align: start;
+  break-inside: avoid;
   transition:
     border-color 0.4s,
     transform 0.5s $ease;
 
   &:hover {
-    border-color: rgba(201, 161, 74, 0.4);
-    transform: translateY(-4px);
+    border-color: rgba(201, 161, 74, 0.45);
+    transform: translateY(-3px);
   }
 
-  blockquote {
-    flex: 1;
-    margin: 0;
-    font-family: $serif;
-    font-size: clamp(24px, 2.2vw, 30px);
-    line-height: 1.2;
-
-    &::before {
-      content: "“";
-      color: $gold;
-    }
-
-    &::after {
-      content: "”";
-      color: $gold;
-    }
-  }
-
-  figcaption {
-    display: flex;
+  &__head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 12px;
-    padding-top: 16px;
-    border-top: 1px solid $line;
+  }
+
+  &__avatar {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  &--gold &__avatar {
+    background: $gold;
+    color: #120f0a;
+  }
+
+  &--sand &__avatar {
+    background: $cream;
+    color: $cream-ink;
+  }
+
+  &--smoke &__avatar {
+    background: #3a332a;
+    color: $gold-hi;
+  }
+
+  &__who {
+    display: grid;
+    min-width: 0;
 
     strong {
-      display: block;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 500;
     }
 
@@ -2725,29 +2747,72 @@ $gutter: clamp(20px, 5vw, 80px);
     }
   }
 
-  &__avatar {
-    display: grid;
-    flex: none;
-    place-items: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: rgba(201, 161, 74, 0.15);
-    color: $gold;
-    font-size: 12px;
-    font-weight: 600;
+  blockquote {
+    margin: 0;
+    font-family: $serif;
+    font-size: clamp(22px, 1.9vw, 27px);
+    line-height: 1.22;
+    letter-spacing: -0.005em;
   }
 
-  @include tablet {
-    flex-basis: 82%;
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    span {
+      padding: 5px 11px;
+      border: 1px solid $line;
+      border-radius: 999px;
+      font-size: 12px;
+      color: $soft;
+    }
   }
 }
 
-.login__demo {
-  margin: -8px 0 0;
-  padding: 10px 14px;
-  border-radius: 12px;
-  background: rgba(201, 161, 74, 0.1);
-  font-size: 13px;
-  color: $gold-hi;
+/* ---------- polish ---------- */
+
+.ticket__trust {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &::before {
+      content: "";
+      flex: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%23120f0a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+          center / 12px no-repeat,
+        #c9a14a;
+    }
+  }
+}
+
+.rail__arrows button {
+  border-color: rgba(243, 238, 230, 0.3);
+}
+
+.stats__item span {
+  font-size: 15px;
+}
+
+.foot {
+  padding-bottom: 96px;
+}
+
+@include tablet {
+  .reviews__wall .review:nth-child(n + 5) {
+    display: none;
+  }
 }

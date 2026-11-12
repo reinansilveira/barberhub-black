@@ -113,6 +113,8 @@ export type ReviewCard = {
   comment: string;
   createdAt: string;
   professional: string | null;
+  client: string;
+  service: string | null;
 };
 
 export function pickReviews(
@@ -140,6 +142,8 @@ export function pickReviews(
       comment: review.comment!.trim(),
       createdAt: review.createdAt,
       professional: names.get(review.professionalId) ?? null,
+      client: review.client ?? "Cliente",
+      service: review.service ?? null,
     }));
 }
 

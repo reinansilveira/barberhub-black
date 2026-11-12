@@ -8,6 +8,8 @@ type Summary = {
   breakdown: { stars: number; count: number; percentage: number }[];
 };
 
+const TONES = ["gold", "sand", "smoke"] as const;
+
 export function ReviewsSection({
   summary,
   reviews,
@@ -21,23 +23,21 @@ export function ReviewsSection({
 
   return (
     <section className="reviews" id="avaliacoes">
-      <header className="reviews__head">
-        <div>
-          <p className="eyebrow" data-reveal>
-            Avaliações
-          </p>
-          <h2 className="title" data-reveal>
-            {title}
-          </h2>
-        </div>
+      <aside className="reviews__aside">
+        <p className="eyebrow" data-reveal>
+          Avaliações
+        </p>
+        <h2 className="title title--sm" data-reveal>
+          {title}
+        </h2>
 
         <div className="score" data-reveal>
-          <strong className="score__value">
-            {formatRating(summary.average)}
-          </strong>
-          <div className="score__meta">
-            <Stars value={summary.average} size={20} />
-            <span>{summary.count} avaliações verificadas</span>
+          <div className="score__top">
+            <strong className="score__value">{formatRating(summary.average)}</strong>
+            <div>
+              <Stars value={summary.average} size={18} />
+              <span className="score__count">{summary.count} avaliações de clientes</span>
+            </div>
           </div>
           <ul className="score__bars" aria-label="Distribuição das notas">
             {summary.breakdown.map((row) => (
@@ -46,37 +46,43 @@ export function ReviewsSection({
                 <i>
                   <b style={{ width: `${row.percentage}%` }} />
                 </i>
+                <small>{row.percentage}%</small>
               </li>
             ))}
           </ul>
         </div>
-      </header>
+
+        <a href="#agendar" className="btn btn--gold reviews__cta" data-magnetic>
+          Quero agendar <span aria-hidden="true">→</span>
+        </a>
+      </aside>
 
       {reviews.length > 0 && (
-        <div className="reviews__track">
+        <div className="reviews__wall">
           {reviews.map((review, index) => (
             <figure
               key={review.id}
-              className="review"
+              className={`review review--${TONES[index % TONES.length]}`}
               data-reveal
-              style={{ ["--i" as string]: index }}
+              style={{ ["--i" as string]: index % 4 }}
             >
-              <Stars value={review.rating} size={14} />
-              <blockquote>{review.comment}</blockquote>
-              <figcaption>
+              <header className="review__head">
                 <span className="review__avatar" aria-hidden="true">
-                  {initials("Cliente")}
+                  {initials(review.client)}
                 </span>
-                <span>
-                  <strong>Cliente verificado</strong>
-                  <small>
-                    {review.professional
-                      ? `com ${review.professional.split(" ")[0]} · `
-                      : ""}
-                    {relativeDate(review.createdAt)}
-                  </small>
+                <span className="review__who">
+                  <strong>{review.client}</strong>
+                  <small>{relativeDate(review.createdAt)}</small>
                 </span>
-              </figcaption>
+                <Stars value={review.rating} size={13} />
+              </header>
+              <blockquote>{review.comment}</blockquote>
+              {(review.service || review.professional) && (
+                <figcaption className="review__tags">
+                  {review.service && <span>{review.service}</span>}
+                  {review.professional && <span>com {review.professional.split(" ")[0]}</span>}
+                </figcaption>
+              )}
             </figure>
           ))}
         </div>

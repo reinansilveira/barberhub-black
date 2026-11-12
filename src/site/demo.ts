@@ -5,6 +5,8 @@ export type Slot = { id: string; startsAt: string };
 export type DemoReview = {
   id: string;
   professionalId: string;
+  client?: string;
+  service?: string;
   rating: number;
   comment: string | null;
   active: boolean;
@@ -106,32 +108,33 @@ const PROS: DemoPro[] = [
   },
 ];
 
-const COMMENTS: [string, number, string][] = [
-  ["rafael-moura", 5, "Melhor corte que já fiz. Ele entende exatamente o que você quer."],
-  ["rafael-moura", 5, "Atendimento impecável, pontual e com aquele acabamento na navalha."],
-  ["rafael-moura", 4, "Muito bom, só tive que esperar uns minutinhos."],
-  ["diego-alves", 5, "Degradê perfeito, ficou idêntico à referência que mostrei."],
-  ["diego-alves", 5, "Detalhista demais. Já virei cliente fixo."],
-  ["diego-alves", 5, "A pigmentação ficou natural, ninguém percebeu."],
-  ["thiago-reis", 5, "Fui de noivo e saí perfeito. Recomendo de olhos fechados."],
-  ["thiago-reis", 5, "O day spa vale cada centavo, saí renovado."],
-  ["thiago-reis", 4, "Ótimo serviço, ambiente muito agradável."],
-  ["lucas-prado", 5, "A toalha quente é outro nível. Melhor barba da cidade."],
-  ["lucas-prado", 5, "Barba desenhada certinho, durou a semana inteira."],
-  ["bruno-costa", 5, "Pedi um desenho na lateral e ficou absurdo."],
-  ["bruno-costa", 4, "Criativo e rápido. Voltarei."],
-  ["vinicius-prado", 5, "Meu filho ama cortar com ele. Paciência total."],
-  ["vinicius-prado", 5, "Primeiro corte do meu filho e foi super tranquilo."],
+const COMMENTS: [string, number, string, string, string][] = [
+  ["rafael-moura", 5, "Melhor corte que já fiz. Ele entende exatamente o que você quer.", "Hudson G.", "Corte Signature"],
+  ["diego-alves", 5, "Degradê perfeito, idêntico à referência que mostrei.", "Matheus R.", "Corte Signature"],
+  ["thiago-reis", 5, "Fui de noivo e saí perfeito. Recomendo de olhos fechados.", "André L.", "Corte + Barba"],
+  ["lucas-prado", 5, "A toalha quente é outro nível. Melhor barba da cidade.", "Felipe D.", "Barba Ritual"],
+  ["rafael-moura", 5, "Pontual, ambiente impecável e aquele acabamento na navalha que faz diferença.", "Bruno C.", "Corte + Barba"],
+  ["vinicius-prado", 5, "Meu filho ama cortar com ele. Paciência total.", "Carla M.", "Corte Infantil"],
+  ["diego-alves", 5, "Detalhista demais. Já virei cliente fixo.", "Rodrigo A.", "Pigmentação"],
+  ["thiago-reis", 5, "O day spa vale cada centavo, saí renovado.", "Gustavo P.", "Day Spa"],
+  ["bruno-costa", 5, "Pedi um desenho na lateral e ficou absurdo.", "Kauã S.", "Corte Signature"],
+  ["lucas-prado", 4, "Barba desenhada certinho, durou a semana inteira.", "Marcos V.", "Barba Ritual"],
+  ["rafael-moura", 4, "Muito bom, só esperei uns minutinhos a mais.", "Leandro T.", "Corte Signature"],
+  ["vinicius-prado", 5, "Primeiro corte do meu filho e foi super tranquilo.", "Juliana F.", "Corte Infantil"],
+  ["bruno-costa", 4, "Criativo e rápido. Voltarei.", "Igor N.", "Corte Signature"],
+  ["diego-alves", 5, "A pigmentação ficou natural, ninguém percebeu.", "Paulo H.", "Pigmentação"],
 ];
 
 const daysAgo = (days: number) => new Date(Date.now() - days * 86_400_000).toISOString();
 
 const REVIEWS: DemoReview[] = [
-  ...COMMENTS.map(([professionalId, rating, comment], index) => ({
+  ...COMMENTS.map(([professionalId, rating, comment, client, service], index) => ({
     id: `r${index}`,
     professionalId,
     rating,
     comment,
+    client,
+    service,
     active: true,
     createdAt: daysAgo(2 + index * 3),
   })),
