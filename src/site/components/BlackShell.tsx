@@ -11,6 +11,7 @@ export function BlackShell({ children }: { children: ReactNode }) {
     <div className="black" ref={ref}>
       <div className="black__progress" aria-hidden="true" />
       <div className="black__cursor" data-cursor aria-hidden="true" />
+      <div className="black__grain" aria-hidden="true" />
       {children}
     </div>
   );

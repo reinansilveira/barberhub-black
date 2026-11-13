@@ -1,5 +1,6 @@
 import { initials } from "@/lib/format";
 import { formatRating, relativeDate, type ReviewCard } from "../site.utils";
+import { QuoteArt } from "./LineArt";
 import { Stars } from "./Rating";
 
 type Summary = {
@@ -24,6 +25,7 @@ export function ReviewsSection({
   return (
     <section className="reviews" id="avaliacoes">
       <aside className="reviews__aside">
+        <QuoteArt className="art--quote" />
         <p className="eyebrow" data-reveal>
           Avaliações
         </p>

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { initials } from "@/lib/format";
 import { BlackShell } from "@/site/components/BlackShell";
 import { BookingFlow } from "@/site/components/BookingFlow";
+import { ScissorsArt } from "@/site/components/LineArt";
 import { FloatingActions } from "@/site/components/FloatingActions";
 import { Rating, Stars } from "@/site/components/Rating";
 import { ReviewsSection } from "@/site/components/ReviewsSection";
@@ -96,6 +97,7 @@ export default async function BarberPage({
       </section>
 
       <section className="book-section" id="agendar">
+        <ScissorsArt className="art--book" />
         <BookingFlow
           team={team}
           initial={{ professionalId: member.id }}

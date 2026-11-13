@@ -32,6 +32,8 @@ export function SiteNav({
             key={item.href}
             href={`${base}${item.href}`}
             onClick={menu.close}
+            className={cn("nav__link", menu.active === item.href && "nav__link--active")}
+            aria-current={menu.active === item.href ? "location" : undefined}
             style={{ ["--i" as string]: index }}
           >
             {item.label}

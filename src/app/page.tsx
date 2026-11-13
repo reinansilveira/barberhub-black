@@ -3,6 +3,9 @@ import Link from "next/link";
 import { BlackShell } from "@/site/components/BlackShell";
 import { FloatingActions } from "@/site/components/FloatingActions";
 import { Hero } from "@/site/components/Hero";
+import { ChairArt, RazorArt, ScissorsArt } from "@/site/components/LineArt";
+import { Marquee } from "@/site/components/Marquee";
+import { ClipperIcon, ScissorsIcon, StarIcon } from "@/site/components/Vectors";
 import { PinnedGallery } from "@/site/components/PinnedGallery";
 import { BookingFlow } from "@/site/components/BookingFlow";
 import { Rating } from "@/site/components/Rating";
@@ -22,8 +25,10 @@ export default async function BlackPage() {
     <BlackShell>
       <SiteNav />
       <Hero />
+      <Marquee />
 
       <section className="book-section" id="agendar">
+        <ScissorsArt className="art--book" />
         <BookingFlow team={team} initial={{}} variant="section" />
       </section>
 
@@ -32,13 +37,16 @@ export default async function BlackPage() {
 
       {team.length > 0 && (
         <section className="team" id="time">
-          <header className="head">
-            <p className="eyebrow" data-reveal>
-              O time
-            </p>
-            <h2 className="title" data-reveal>
-              Quem cuida <em>de você</em>
-            </h2>
+          <header className="head head--art">
+            <div>
+              <p className="eyebrow" data-reveal>
+                O time
+              </p>
+              <h2 className="title" data-reveal>
+                Quem cuida <em>de você</em>
+              </h2>
+            </div>
+            <ChairArt className="art--team" />
           </header>
           <div className="team__grid">
             {team.slice(0, 4).map((barber, index) => (
@@ -76,8 +84,11 @@ export default async function BlackPage() {
       )}
 
       <section className="stats" aria-label="Números">
-        {STATS.map((stat) => (
+        {STATS.map((stat, index) => {
+          const Icon = [ScissorsIcon, ClipperIcon, StarIcon][index] ?? StarIcon;
+          return (
           <div key={stat.label} className="stats__item" data-reveal>
+            <Icon className="stats__icon" />
             <strong
               data-count={stat.value}
               data-suffix={stat.suffix}
@@ -87,10 +98,12 @@ export default async function BlackPage() {
             </strong>
             <span>{stat.label}</span>
           </div>
-        ))}
+          );
+        })}
       </section>
 
       <section className="club" id="clube">
+        <RazorArt className="art--club" />
         <header className="head head--center">
           <p className="eyebrow" data-reveal>
             Clube

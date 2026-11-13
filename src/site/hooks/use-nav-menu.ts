@@ -8,6 +8,7 @@ export function useNavMenu() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [active, setActive] = useState("");
   useBodyScrollLock(open);
   useEscapeKey(() => setOpen(false), open);
 
@@ -25,7 +26,24 @@ export function useNavMenu() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const sections = ["servicos", "casa", "time", "clube"]
+      .map((id) => document.getElementById(id))
+      .filter((node): node is HTMLElement => Boolean(node));
+    if (!sections.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting);
+        if (visible.length) setActive(`#${visible[0].target.id}`);
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
   return {
+    active,
     open,
     scrolled,
     hidden: hidden && !open,

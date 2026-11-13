@@ -1,5 +1,6 @@
 import { HERO_VIDEO, IMAGES } from "../site.data";
 import { DateStrip } from "./DateStrip";
+import { Seal } from "./Seal";
 
 export function Hero() {
   return (
@@ -27,6 +28,10 @@ export function Hero() {
             cada <em>detalhe.</em>
           </span>
         </h1>
+      </div>
+
+      <div className="hero__seal">
+        <Seal />
       </div>
 
       <div className="hero__booking">

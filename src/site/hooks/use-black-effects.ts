@@ -83,9 +83,22 @@ export function useBlackEffects(root: RefObject<HTMLElement | null>) {
           "--scroll",
           String(max > 0 ? window.scrollY / max : 0),
         );
+        const viewport = window.innerHeight;
+        for (const node of el.querySelectorAll<SVGElement>("[data-draw]")) {
+          if (reduced.matches) {
+            node.style.setProperty("--draw", "1");
+            continue;
+          }
+          const rect = node.getBoundingClientRect();
+          const progress = clamp(
+            (viewport * 0.95 - rect.top) / (rect.height * 0.8 + viewport * 0.25),
+            0,
+            1,
+          );
+          node.style.setProperty("--draw", progress.toFixed(3));
+        }
         if (reduced.matches) return;
 
-        const viewport = window.innerHeight;
         for (const node of el.querySelectorAll<HTMLElement>(
           "[data-parallax]",
         )) {
